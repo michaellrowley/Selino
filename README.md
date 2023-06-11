@@ -7,6 +7,7 @@ Selino is a cross-platform, **scriptable** proxy with support for ``CONNECT``-ty
 
 <span align="center">
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/e6477bac125f4614940c1821655fd228)](https://app.codacy.com/gh/michaellrowley/Selino?utm_source=github.com&utm_medium=referral&utm_content=michaellrowley/Selino&utm_campaign=Badge_Grade)
 [![Lua - Documentation](https://img.shields.io/badge/Lua_API-Documentation-blue?style=for-the-badge)](https://proxy-application.gitbook.io/ "Go to project documentation")
 
 </span>
