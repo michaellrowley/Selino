@@ -3,13 +3,16 @@
 <img src="./logo.png" width=150>
 </p>
 
-Selino is a cross-platform, **scriptable** proxy with support for ``CONNECT``-type connections on SOCKS4(/a) and SOCKS5(/h).
 
 <span align="center">
 
 [![Lua - Documentation](https://img.shields.io/badge/Lua_API-Documentation-blue?style=for-the-badge)](https://proxy-application.gitbook.io/ "Go to project documentation")
 
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/6f240593371b40e6a254af93da5816be)](https://app.codacy.com/gh/michaellrowley/Selino/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+
 </span>
+
+Selino is a cross-platform, **scriptable** proxy with support for ``CONNECT``-type connections on SOCKS4(/a) and SOCKS5(/h).
 
 ## Usage
 Running this application is as simply as launching its binary followed by some (*mostly* optional) standard command-line arguments;
