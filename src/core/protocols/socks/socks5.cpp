@@ -129,7 +129,7 @@ void Selino::Protocols::SOCKS::V5::RunIntroduction(std::uint8_t& fail_reason) {
 
     const boost::asio::ip::address request_address = request_endpoint.address();
 
-    if (!Selino::Protocols::SOCKS::V5::AllowLocalConnections && (request_address.is_loopback() || request_address.is_unspecified())) {
+    if (!this->AllowLocalConnections && (request_address.is_loopback() || request_address.is_unspecified())) {
         throw std::runtime_error("Attempt to interact with local endpoint");
     }
 

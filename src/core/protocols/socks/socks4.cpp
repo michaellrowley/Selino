@@ -62,7 +62,7 @@ void Selino::Protocols::SOCKS::V4::ProcessConnection(const std::uint8_t* const f
         destination_addr = boost::asio::ip::address::from_string(destination_addr_str);
     }
 
-    if (!Selino::Protocols::SOCKS::V4::AllowLocalConnections && (destination_addr.is_loopback() || destination_addr.is_unspecified())) {
+    if (!this->AllowLocalConnections && (destination_addr.is_loopback() || destination_addr.is_unspecified())) {
         this->ConnectionSocket.get().send(boost::asio::const_buffer(reinterpret_cast<const std::uint8_t*>(reply_buffer), 8));
         throw std::runtime_error("Invalid request: attempt to interact with local endpoint");
     }

@@ -2,58 +2,33 @@
 #include <cstdint>
 #include <map>
 
-#include "./config.hpp"
+#include "./config/config.hpp"
 #include "../scripting/lua/lua.hpp"
 #include "./protocols/socks/socks.hpp"
 #include "../utils/utils.hpp"
 
-namespace Selino::Config {
-    std::unordered_map<std::string, std::vector<std::string>> ArgumentsProvided = {};
-};
-
-namespace Selino::Utils::Networking {
-    std::chrono::milliseconds TwoWayTimeout(3000);
+namespace Selino {
+    namespace Config {
+        std::unordered_map<std::string, std::vector<std::string>> ArgumentsProvided = {};
+    };
+    namespace Utils::Networking {
+        std::chrono::milliseconds TwoWayTimeout(3000);
+    };
 };
 
 int main(const int argc, const char* const* const argv) {
-    for (unsigned int i = 1; i < argc; i++) {
-        const std::string& argument_key = argv[i];
-        for (unsigned int j = 0; j < Selino::Config::ValidArgsCount; j++) {
 
-            const std::string clean_key = Selino::Config::ValidArgsArr[j].second;
-
-            if (argument_key == "-" + Selino::Config::ValidArgsArr[j].first || argument_key == "--" + clean_key) {
-
-                if (i == argc - 1) {
-                    std::cerr << "Invalid final argument; expected script path/name." << std::endl;
-                    return 0;
-                }
-
-                if (Selino::Config::ArgumentsProvided.find(clean_key) == Selino::Config::ArgumentsProvided.end()) {
-                    Selino::Config::ArgumentsProvided.insert(std::pair<std::string, std::vector<std::string>>(clean_key, std::vector<std::string>(0)));
-                }
-
-                // This forces a second search but it doesn't really slow anything down.
-                Selino::Config::ArgumentsProvided[clean_key].push_back(argv[++i]);
-
-                break;
-            }
-            else if (j == Selino::Config::ValidArgsCount - 1) {
-                std::cerr << "Unsupported argument provided: '" << argument_key << "'" << std::endl;
-            }
-        }
+    try {
+        Selino::Config::ParseArguments(argc, argv);
+    } catch (std::runtime_error& err) {
+        std::cerr << err.what() << std::endl;
+        return 0;
     }
 
     std::unordered_map<std::string, std::vector<std::string>>::const_iterator temp_pair =
         Selino::Config::ArgumentsProvided.find("timeout");
     if (temp_pair != Selino::Config::ArgumentsProvided.cend()) {
-        if (temp_pair->second.size() != 1) {
-            std::cerr << "Too many timeout parameters provided, (max: 1)" << std::endl;
-            return 0;
-        }
-        else {
-            Selino::Utils::Networking::TwoWayTimeout = Selino::Utils::Data::StringToDuration(temp_pair->second[0]);
-        }
+        Selino::Utils::Networking::TwoWayTimeout = Selino::Utils::Data::StringToDuration(temp_pair->second[0]);
     }
 
     for (const std::string& script_path : Selino::Config::ArgumentsProvided["script"]) {

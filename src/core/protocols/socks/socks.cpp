@@ -1,4 +1,5 @@
 #include "./socks.hpp"
+#include "../../config/config.hpp"
 #include "../../../scripting/lua/lua.hpp"
 
 #include <memory>
@@ -34,16 +35,19 @@ void Selino::Protocols::SOCKS::ConnectionHandler(boost::asio::ip::tcp::socket in
 
     // By catching inside 'ConnectionHandler' instead of allowing the caller to catch, we're able to call 'protocol_fail' in
     // more specific cases (the script will know that 'ConnectionHandler' reached this point, instead of being given bad data).
-    #define CALL_SOCKSVER_CONN_PROCESSOR(vernum) if (version == VersionOptions::SOCKS##vernum) {                         \
-        try {                                                                                                            \
-            Selino::Protocols::SOCKS::V##vernum handler(incoming_socket);                                                  \
-            handler.ProcessConnection(receive_buffer_raw, amount_received);                                              \
-        } catch (const std::runtime_error& err) {                                                                        \
-            Selino::Scripting::Lua::Callbacks::Call("protocol_fail", socks_verstr, err.what());                            \
-        }                                                                                                                \
+    #define CALL_SOCKSVER_CONN_PROCESSOR(vernum) if (version == VersionOptions::SOCKS##vernum) {                                 \
+        try {                                                                                                                    \
+            Selino::Protocols::SOCKS::V##vernum handler(incoming_socket);                                                        \
+            handler.ProcessConnection(receive_buffer_raw, amount_received);                                                      \
+        } catch (const std::runtime_error& err) {                                                                                \
+            Selino::Scripting::Lua::Callbacks::Call("protocol_fail", socks_verstr, err.what());                                  \
+        }                                                                                                                        \
     }
+    // Selino::Protocols::SOCKS::V4 handler(incoming_socket, Selino::Config::ArgumentsProvided.find("enable-local-connections") != Selino::Config::ArgumentsProvided.cend());
     CALL_SOCKSVER_CONN_PROCESSOR(4)
     else CALL_SOCKSVER_CONN_PROCESSOR(5)
 }
 
-Selino::Protocols::SOCKS::Implementation::Implementation(boost::asio::ip::tcp::socket& connection) : ConnectionSocket(connection) { }
+Selino::Protocols::SOCKS::Implementation::Implementation(
+    boost::asio::ip::tcp::socket& connection
+) : ConnectionSocket(connection), AllowLocalConnections(Selino::Config::ArgumentsProvided.find("enable-local-connections") != Selino::Config::ArgumentsProvided.cend()) { }
