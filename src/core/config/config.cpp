@@ -9,7 +9,7 @@ void Selino::Config::ParseArguments(const std::size_t argc, const char* const* c
         const std::string& argument_key = argv[i];
         for (unsigned int j = 0; j < Selino::Config::ValidArgsCount; j++) {
 
-            const std::tuple<ArgumentType, std::pair<std::string, std::string>>& iterative_arg = Selino::Config::ValidArgsArr[j];
+            const std::tuple<ArgumentType, std::pair<std::string, std::string>, std::string, std::string>& iterative_arg = Selino::Config::ValidArgsArr[j];
             const std::pair<std::string, std::string>& argument_names = std::get<1>(iterative_arg);
             const std::string clean_key = argument_names.second;
 
@@ -35,8 +35,18 @@ void Selino::Config::ParseArguments(const std::size_t argc, const char* const* c
                 break;
             }
             else if (j == Selino::Config::ValidArgsCount - 1) {
-                throw std::runtime_error("Unsupported argument provided: '" + clean_key + "'");
+                throw std::runtime_error("Unsupported argument provided: '" + argument_key + "'");
             }
         }
     }
+}
+
+const std::string Selino::Config::GenerateHelp() {
+    std::string help_str("Selino CLI Help:\n");
+    for (std::size_t i = 0; i < Selino::Config::ValidArgsCount; i++) {
+        const std::tuple<ArgumentType, std::pair<std::string, std::string>, std::string, std::string>& arg_ref = Selino::Config::ValidArgsArr[i];
+        const std::pair<std::string, std::string>& arg_name = std::get<1>(arg_ref);
+        help_str += "\n\t'--" + arg_name.second + "' ('-" + arg_name.first + "'):\n\t\tDescription:\n\t\t\t" + std::get<3>(arg_ref) + "\n\t\tExample:\n\t\t\t$ selino-cli --" + arg_name.second + " " + std::get<2>(arg_ref) + "\n";
+    }
+    return help_str;
 }

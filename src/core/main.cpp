@@ -17,11 +17,10 @@ namespace Selino {
 };
 
 int main(const int argc, const char* const* const argv) {
-
     try {
         Selino::Config::ParseArguments(argc, argv);
     } catch (std::runtime_error& err) {
-        std::cerr << err.what() << std::endl;
+        std::cerr << err.what() << "\n\n" << Selino::Config::GenerateHelp() << std::endl;
         return 0;
     }
 
