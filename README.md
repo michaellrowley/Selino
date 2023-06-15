@@ -19,6 +19,7 @@ Running this application is as simply as launching its binary followed by some (
 - ``-s`` / ``--script``: A script to receive app-specific callbacks throughout the application's execution.
 - ``-p`` / ``--port``: The port that the application should listen on for incoming connections.
 - ``-t`` / ``--timeout``: The application's inactivity timeout during two-way 'transparent' forwarding. This can be specified as ``60,000`` (defaults to milliseconds), or with a suffix such as ``s``/``ms``/``m`` or ``seconds``/``milliseconds``/``minutes``.
+- ``-elc`` / ``--enable-local-connections``: A flag (meaning that no additional value is required) to permit the proxy to deliver requests from clients to internal (private or localhost) addresses without any filtering.
 > selino -s log_data.lua -p 8080 -p 1080 -p  -t 30ms
 
 Lua scripts play a major role in this project's feature-set, allowing users to expand the proxy's capability or specialize features towards a specific goal.
