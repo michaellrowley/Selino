@@ -20,8 +20,8 @@
 // A: That could(?) mean that scripts are unable to share data between callback calls or use global variables
 //    to track application-wide metrics.
 
-// Conclusion: All in all, the LUA side of this application takes a negligible amount of time to process
-//             (according to time logs from the client).
+// The LUA side of this application takes a negligible amount of time to process
+// (according to benchmarks) but optimizations are welcome.
 
 namespace Selino::Scripting::Lua {
     const std::string CallbacksTableName = "callbacks";

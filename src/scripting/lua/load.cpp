@@ -2,6 +2,8 @@
 #include <boost/asio.hpp>
 #include <boost/asio/ip/tcp.hpp>
 
+#include <utility>
+
 #include "./lua.hpp"
 
 namespace Selino::Scripting::Lua {
@@ -43,7 +45,7 @@ void Selino::Scripting::Lua::Load::Script(const std::string& script_string) {
     if (failed) {
         throw std::runtime_error("Unable to initialize LUA script from string");
     }
-    for (std::pair<sol::object, sol::object>& function_pair : static_cast<sol::table>(new_lua_state[CallbacksTableName])) {
+    for (std::pair<sol::object, sol::object>& function_pair : new_lua_state[CallbacksTableName].get<sol::table>()) {
         if (function_pair.second.get_type() == sol::type::function) {
             const std::string function_name = function_pair.first.as<std::string>();
             AddCallbackTally(function_name);
@@ -60,7 +62,7 @@ void Selino::Scripting::Lua::Load::Script(const std::filesystem::path& script_pa
 
     bool failed = false;
     try {
-        new_lua_state.script_file(script_path);
+        new_lua_state.script_file(script_path.string());
         if (!new_lua_state[CallbacksTableName]["init"].valid() || !new_lua_state[CallbacksTableName]["init"]()) {
             failed = true;
         }
@@ -71,7 +73,7 @@ void Selino::Scripting::Lua::Load::Script(const std::filesystem::path& script_pa
     if (failed) {
         throw std::runtime_error("Unable to initialize LUA script from file");
     }
-    for (std::pair<sol::object, sol::object>& function_pair : static_cast<sol::table>(new_lua_state[CallbacksTableName])) {
+    for (std::pair<sol::object, sol::object>& function_pair : new_lua_state[CallbacksTableName].get<sol::table>()) {
         if (function_pair.second.get_type() == sol::type::function) {
             const std::string function_name = function_pair.first.as<std::string>();
             AddCallbackTally(function_name);
