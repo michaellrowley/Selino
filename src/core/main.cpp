@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cstdint>
-#include <map>
+#include <unordered_map>
 
 #include "./config/config.hpp"
 #include "../scripting/lua/lua.hpp"
