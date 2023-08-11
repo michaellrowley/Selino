@@ -25,9 +25,6 @@ void Selino::Protocols::Base::Listen(const std::uint16_t port, const bool ipv4_o
     boost::system::error_code error_code;
     this->SrvAcceptor->set_option(boost::asio::ip::v6_only(false), error_code);
     // "V6_ONLY->FALSE" Doesn't work on MacOS and some Linux distributions.
-    // if (error_code) {
-    //     throw std::runtime_error("Unable to create shared IPv6/v4 acceptor");
-    // }
 
     this->AsyncAcceptLauncher();
     this->SrvAcceptor->listen();
