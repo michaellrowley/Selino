@@ -22,7 +22,7 @@ Running this application is as simply as launching its binary followed by some (
 - ``-elc`` / ``--enable-local-connections``: A flag (meaning that no additional value is required) to permit the proxy to deliver requests from clients to internal (private or localhost) addresses without any filtering.
 > selino -s log_data.lua -p 8080 -p 1080 -p  -t 30ms
 
-Lua scripts play a major role in this project's feature-set, allowing users to expand the proxy's capability or specialize features towards a specific goal.
+Lua scripts play a major role in this project's structure, allowing users to modularly expand the proxy's features.
 
 ## Example
 > $ selino -s [testing/logging.lua](./testing/logging.lua) -p 8080 -p 1080 -p -t 30ms
@@ -71,5 +71,4 @@ Compiling this project requires inclusion of some external libraries:
 - [Sol2](https://github.com/ThePhD/sol2)(v3) for implementation of Lua scripting
 - [Lua](https://www.lua.org/download.html) (tested using ``5.4``) for Sol to use as a backend for the language
 - [Boost](https://www.boost.org/) for cross-platform networking
-
-I looked into creating a makefile for this project, however linking to boost made it too complicated to work between environments without changing a system's configuration.
+The code itself is written in C++20, which a compiler will need to know (using <= C++17 will fail).
