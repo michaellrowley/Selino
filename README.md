@@ -25,7 +25,7 @@ Running this application is as simply as launching its binary followed by some (
 Lua scripts play a major role in this project's structure, allowing users to modularly expand the proxy's features.
 
 ## Example
-> $ selino -s [testing/logging.lua](./testing/logging.lua) -p 8080 -p 1080 -p -t 30ms
+> $ selino -s [testing/logging.lua](./testing/logging.lua) -p 8080 -p 1080 -t 30ms
 
 Separate terminal:
 > $ curl -x socks5://localhost:8080 http://info.cern.ch
