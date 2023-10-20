@@ -15,7 +15,7 @@
 Selino is a cross-platform, **scriptable** proxy with support for ``CONNECT``-type connections on SOCKS4(/a) and SOCKS5(/h).
 
 ## Usage
-Running this application is as simply as launching its binary followed by some (*mostly* optional) standard command-line arguments;
+Running this application is as simple as launching its binary followed by some (*mostly* optional) standard command-line arguments;
 - ``-s`` / ``--script``: A script to receive app-specific callbacks throughout the application's execution.
 - ``-p`` / ``--port``: The port that the application should listen on for incoming connections.
 - ``-t`` / ``--timeout``: The application's inactivity timeout during two-way 'transparent' forwarding. This can be specified as ``60,000`` (defaults to milliseconds), or with a suffix such as ``s``/``ms``/``m`` or ``seconds``/``milliseconds``/``minutes``.
