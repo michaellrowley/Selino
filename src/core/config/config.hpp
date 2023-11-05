@@ -9,7 +9,7 @@
 namespace Selino::Config {
     static constexpr unsigned int ValidArgsCount = 4;
 
-    enum ArgumentType : std::uint8_t {
+    enum ArgumentType {
         PRESENCE_TOGGLE = 1, // The argument does not need to be accompanied by any other information, its presence is a flag.
         STRING_VALUE = 2, // The argument should be passed as a string (with data after it).
         SINGLE_VALUE = 4 // Only one argument of this name can be passed.
