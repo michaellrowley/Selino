@@ -25,6 +25,7 @@ namespace Selino::Protocols {
             class V4 : public Implementation {
             public:
                 void ProcessConnection(const std::uint8_t* const first_packet_buffer, const std::size_t first_packet_buffer_size);
+                V4(boost::asio::ip::tcp::socket& connection) : Implementation(connection) {};
             };
 
             class V5 : public Implementation {
@@ -46,6 +47,7 @@ namespace Selino::Protocols {
 
             public:
                 void ProcessConnection(const std::uint8_t* const first_packet_buffer, const std::size_t first_packet_buffer_size);
+                V5(boost::asio::ip::tcp::socket& connection) : Implementation(connection) {};
             };
 
         public:
