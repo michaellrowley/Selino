@@ -71,4 +71,38 @@ Compiling this project requires inclusion of some external libraries:
 - [Sol2](https://github.com/ThePhD/sol2)(v3) for implementation of Lua scripting
 - [Lua](https://www.lua.org/download.html) (tested using ``5.4``) for Sol to use as a backend for the language
 - [Boost](https://www.boost.org/) for cross-platform networking
+
 The code itself is written in C++20, which a compiler will need to know (using <= C++17 will fail).
+
+This project has successfully been compiled on the latest versions of GCC, Clang, and MSVC. There is a CMake file included in the ``src/`` directory to aid in generating a makefile for building the code (you may need to define ``SOL_PATH`` and/or ``BOOST_INCLUDE_DIR`` for CMake to run smoothly).
+<details>
+	<summary>Compilation using CMake example:</summary>
+This example assumes a file hierarchy as follows:
+
+```
+    |- sol2
+    |----- sol
+    |---------- config.hpp
+    |---------- sol.hpp
+    |---------- forward.hpp
+    |- boost_1_8x
+    |----- include
+    |---------- boost
+    |--------------- asio.hpp
+    |--------------- ...
+    |- selino
+    |----- src
+    |---------- CMakeLists.txt
+    |---------- ...
+```
+ 
+```sh
+git clone https://github.com/michaellrowley/Selino/
+cd Selino
+cmake src -DSOL_PATH="../../sol2/" -DBOOST_INCLUDE_DIR="../../boost_1_8x/include/"
+cmake src -DSOL_PATH="../../sol2/" -DBOOST_INCLUDE_DIR="../../boost_1_8x/include/"
+make
+```
+Of course, you'll need to replace the include paths with your own, and on some platforms there will be no need to specify the boost library include path at all (as long as the ``libboost-dev`` package is installed).
+
+</details>
