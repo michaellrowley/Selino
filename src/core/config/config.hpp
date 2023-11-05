@@ -7,6 +7,7 @@
 #include <vector>
 
 namespace Selino::Config {
+    static constexpr const char* VersionStr = "0.1.1";
     static constexpr unsigned int ValidArgsCount = 4;
 
     enum ArgumentType {

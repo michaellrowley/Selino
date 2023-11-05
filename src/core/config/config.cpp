@@ -42,7 +42,7 @@ void Selino::Config::ParseArguments(const std::size_t argc, const char* const* c
 }
 
 const std::string Selino::Config::GenerateHelp() {
-    std::string help_str("Selino CLI Help:\n");
+    std::string help_str("Selino CLI (v" + std::string(Selino::Config::VersionStr) + ") Help:");
     for (std::size_t i = 0; i < Selino::Config::ValidArgsCount; i++) {
         const std::tuple<ArgumentType, std::pair<std::string, std::string>, std::string, std::string>& arg_ref = Selino::Config::ValidArgsArr[i];
         const std::pair<std::string, std::string>& arg_name = std::get<1>(arg_ref);

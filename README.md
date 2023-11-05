@@ -14,6 +14,8 @@
 
 Selino is a cross-platform, **scriptable** proxy with support for ``CONNECT``-type connections on SOCKS4(/a) and SOCKS5(/h).
 
+**Current Version: 0.1.1**
+
 ## Usage
 Running this application is as simple as launching its binary followed by some (*mostly* optional) standard command-line arguments;
 - ``-s`` / ``--script``: A script to receive app-specific callbacks throughout the application's execution.
@@ -95,7 +97,7 @@ This example assumes a file hierarchy as follows:
     |---------- CMakeLists.txt
     |---------- ...
 ```
- 
+
 ```sh
 git clone https://github.com/michaellrowley/Selino/
 cd Selino
