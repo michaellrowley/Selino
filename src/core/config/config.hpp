@@ -4,6 +4,7 @@
 #include <string>
 #include <tuple>
 #include <unordered_map>
+#include <vector>
 
 namespace Selino::Config {
     static constexpr unsigned int ValidArgsCount = 4;
