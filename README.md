@@ -68,13 +68,13 @@ Terminated a connection on local '127.0.0.1:8080' from '127.0.0.1:62173'
 ```
 </details>
 
-## Installation
+## Compilation
 Compiling this project requires inclusion of some external libraries:
 - [Sol2](https://github.com/ThePhD/sol2)(v3) for implementation of Lua scripting
 - [Lua](https://www.lua.org/download.html) (tested using ``5.4``) for Sol to use as a backend for the language
 - [Boost](https://www.boost.org/) for cross-platform networking
 
-The code itself is written in C++20, which a compiler will need to know (using <= C++17 will fail).
+The code itself is written in C++20 and therefore attempts to use anything below that version will require some source-level adjustments in order to compile.
 
 This project has successfully been compiled on the latest versions of GCC, Clang, and MSVC. There is a CMake file included in the ``src/`` directory to aid in generating a makefile for building the code (you may need to define ``SOL_PATH`` and/or ``BOOST_INCLUDE_DIR`` for CMake to run smoothly).
 <details>
@@ -105,6 +105,8 @@ cmake src -DSOL_PATH="../../sol2/" -DBOOST_INCLUDE_DIR="../../boost_1_8x/include
 cmake src -DSOL_PATH="../../sol2/" -DBOOST_INCLUDE_DIR="../../boost_1_8x/include/"
 make
 ```
-Of course, you'll need to replace the include paths with your own, and on some platforms there will be no need to specify the boost library include path at all (as long as the ``libboost-dev`` package is installed).
+You'll need to replace the include paths with your own, and on some platforms there will be no need to specify the boost library include path at all (as long as the ``libboost-dev`` package is installed).
+
+***Note:*** We run cmake twice to remediate a slight Lua include bug within the CMake file, where the first run fails to create proper linking commands and the second - presumably thanks to the CMake cache file - is able to satisfy that requirement.
 
 </details>
